@@ -11,10 +11,13 @@ export default class Modal extends PureComponent {
     window.addEventListener('keydown', this.handleKeyDown);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
   handleKeyDown = e => {
     if (e.code === 'Escape') {
       this.props.onClose();
-      window.removeEventListener('keydown', this.handleKeyDown);
     }
   };
 

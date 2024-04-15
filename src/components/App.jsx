@@ -42,16 +42,17 @@ class App extends Component {
     });
   };
 
-  handleLoadMore = () => {
+  handleLoadMore = e => {
     this.setState(prevState => ({
       page: prevState.page + 1,
-      isLoading: true,
     }));
+
+    e.target.blur();
   };
 
   scrollToNextResult = () => {
     window.scrollBy({
-      top: 600,
+      top: 560,
       behavior: 'smooth',
     });
   };
@@ -60,6 +61,8 @@ class App extends Component {
     const { searchQuery, page } = this.state;
 
     if (prevState.searchQuery !== searchQuery || prevState.page !== page) {
+      this.setState({ isLoading: true });
+
       try {
         const res = await fetchPhotos(searchQuery, page);
 
